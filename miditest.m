@@ -1,5 +1,6 @@
 %midi test
 %passes in midi file and outputs midi file msg
+%hella
 
 readme = fopen('miditestfile2.MID');
 [readOut, byteCount] = fread(readme);

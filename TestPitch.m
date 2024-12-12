@@ -4,7 +4,7 @@
 clf
 f0 = pitch(x, fs); %function converts it to fundamental frequency
 
-%sound(x,fs) %play the sound
+%sound(x,fs) %play the sound hella
 
 tiledlayout(2,1)
 
@@ -52,6 +52,7 @@ title("Harmonic Ratio")
 threshold = .9;
 f0(hr < threshold) = nan;
 
+figure
 tiledlayout(2,1)
 
 nexttile
@@ -78,8 +79,23 @@ end
 
 nexttile
 c = (0:length(fpitchnum)-1)/100;
-plot(c,fpitchnum)
+plot(tf0,fpitchnum)
 xlabel("Time (s)")
 ylabel("Note")
 grid minor
 axis tight
+for c = 1:length(fpitch)
+    if mod(c,50) == 0
+        text(tf0(c),fpitchnum(c),fpitch(c));
+    end
+end
+
+%________________________
+%Determine Lengths
+%________________________
+
+tempo = 70;
+
+[timeslist, noteslist] = durcalc(fpitchnum, tempo);
+
+

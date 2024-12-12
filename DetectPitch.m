@@ -1,29 +1,30 @@
-% Pitch Detection
+%Play around with functions
 
-[y, fs] = audioread('Chinese Sax.wav'); %sound read in
-clf
-f0 = pitch(y, fs); %function converts it to fundamental frequency
+[x, fs] = audioread('Chinese Sax.wav'); %sound read in
+f0 = pitch(x, fs); %function converts it to fundamental frequency
 
-sound(y,fs) %play the sound
 
-tiledlayout(3,1)
+%________________________________
+%Estimate Pitch For Singing Voice hella
+%________________________________
 
-nexttile %display time domain graph
-t = (0:length(y)-1)/fs;
-plot(t,y)
-xlabel("Time (s)")
-ylabel("Amplitude")
-grid minor
-axis tight
+winLength = round(.05*fs);
+overlapLength = round(.045*fs);
+[f0,idx] = pitch(x,fs, Method = "SRH", WindowLength = winLength, OverlapLength = overlapLength);
+tf0 = idx/fs;
 
-nexttile %display frequency over time
-pitch(y,fs)
+hr = harmonicRatio(x,fs, Window = hamming(winLength,"periodic"), OverlapLength=overlapLength);
 
-f0 = pitch(y,fs);
+threshold = .9;
+f0(hr < threshold) = nan;
+
+%________________________
+%PitchLook
+%________________________
+
 fpitch = zeros(length(f0),1); %empty array for note names
 fpitch = string(fpitch);
-
-fpitchnum = zeros(length(f0),1); %empty array for graphing notes
+fpitchnum = zeros(length(f0),1); %empty array for note numbers for midi
 
 for c = 1:length(fpitch) %implement pitchlook
     [tempnote,tempspot] = pitchlook(f0(c,1));
@@ -31,10 +32,8 @@ for c = 1:length(fpitch) %implement pitchlook
     fpitchnum(c) = tempspot;
 end
 
-nexttile %display note numbers over time
-c = (0:length(fpitchnum)-1)/100;
-plot(c,fpitchnum)
-xlabel("Time (s)")
-ylabel("Note")
-grid minor
-axis tight
+%________________________
+%Determine Lengths
+%________________________
+
+

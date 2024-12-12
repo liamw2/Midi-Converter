@@ -1,5 +1,5 @@
 %Find Variable Length reads delta-times and returns length of input value
-%and value itself
+%and value itself hella
 
 function [valueOut,byteLength] = findVariableLength(lengthIndex,readOut)
 
