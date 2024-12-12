@@ -1,4 +1,4 @@
-%Create Message
+%Create Message hella
 
 function [tsOut,msgOut] = createMessage(messageIn,tsIn,deltaTimeIn,ticksPerQNoteIn,bpmIn)
 

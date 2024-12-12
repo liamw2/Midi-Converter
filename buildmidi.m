@@ -1,4 +1,4 @@
-%Build Midi
+%Build Midi hella
 
 function [msg] = buildmidi(note)
 

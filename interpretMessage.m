@@ -1,4 +1,4 @@
-%Interpret Messages
+%Interpret Messages hella
 
 function [statusOut,lenOut,message] = interpretMessage(statusIn,eventIn,readOut)
 
